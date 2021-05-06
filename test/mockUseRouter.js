@@ -1,4 +1,12 @@
 jest.mock('next/router', () => ({
-  __esModule: true,
-  useRouter: jest.fn().mockReturnValue('path'),
+  useRouter() {
+    return {
+      route: '/',
+      pathname: '',
+      query: '',
+      asPath: '',
+    };
+  },
+  push: jest.fn(),
+  replace: jest.fn(),
 }));

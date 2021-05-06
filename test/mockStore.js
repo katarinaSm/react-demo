@@ -16,9 +16,3 @@ export const getMockStore = () => ({
   setDataSent: jest.fn(),
   currentProjectInfo: jest.fn(),
 });
-
-jest.mock('../hooks/useStore', () => ({
-  __esModule: true,
-  default: getMockStore,
-  namedExport: jest.fn(),
-}));

@@ -6,6 +6,19 @@ const IS_LOADING = 0;
 const IS_ALERT_SHOWN = 1;
 const SUBMIT_FORM = 2;
 
+jest.mock('../hooks/useStore', () => ({
+  __esModule: true,
+  default: () => ({
+    userData: {
+      email: undefined,
+      amount: undefined,
+    },
+    nextPage: jest.fn(),
+    updateCurrentPage: jest.fn(),
+    setDataSent: jest.fn(),
+  }),
+}));
+
 describe('useSubmitForm', () => {
   // https://github.com/jsdom/jsdom/issues/1724#issuecomment-675486907
   // beforeAll(() => jest.spyOn(window, 'fetch')); <== won't work in jsdom
