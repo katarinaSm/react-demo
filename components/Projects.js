@@ -46,7 +46,7 @@ const Projects = () => {
       </Typography>
       <Paper className={classes.paper}>
         {error && <h3>Something went ... </h3>}
-        {isLoading && <h3>Searching for available projects</h3>}
+        {isLoading && <h3 data-testid="loader">Searching for available projects</h3>}
         {data &&
           data.projects.map((project) => (
             <Project

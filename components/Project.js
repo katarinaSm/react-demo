@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Project = ({ project, onClick, isActive }) => {
-  const { name, location } = project;
+  const { id, name, location } = project;
   const handleClick = useCallback(() => onClick(project), [project, onClick]);
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-testid={`project_${id}`}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Button
@@ -44,6 +44,7 @@ const Project = ({ project, onClick, isActive }) => {
 
 Project.propTypes = {
   project: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
   }),
