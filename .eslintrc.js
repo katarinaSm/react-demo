@@ -7,11 +7,7 @@ module.exports = {
     jest: true,
     jasmine: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-    'prettier'
-  ],
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
@@ -20,9 +16,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: [
-    'react', 'react-hooks', 'prettier'
-  ],
+  plugins: ['react', 'react-hooks', 'prettier', 'jest-dom'],
   rules: {
     camelcase: 'off',
     'class-methods-use-this': 'off',
@@ -30,10 +24,7 @@ module.exports = {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-param-reassign': 'off',
     'no-underscore-dangle': ['warn', { allowAfterThis: true }],
-    'react/jsx-filename-extension': [
-      1,
-      { extensions: ['.js', '.jsx'] },
-    ],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-fragments': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
@@ -42,5 +33,6 @@ module.exports = {
     'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
     'react/destructuring-assignment': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };
