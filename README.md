@@ -13,7 +13,7 @@ nvm use
 ~~~
 can be used to set the version of node.js.
 
-Additional details can be found in the section `Original document` - provided by used `next.js` application generator.
+Additional details can be found in the section `Original document` - provided by `next.js'` tool which is used to generate the initial boilerplate code.
 
 Docker might be used to provide DB support (or local instance should be set).
 CONNECTION_STRING field of `.env` file should be updated accordingly.
