@@ -27,7 +27,7 @@ describe('ConfirmInfo', () => {
     store.currentProjectInfo = {
       name: 'My project',
     };
-    store.userData = { email: 'email@mail.com', amount: 1500000 };
+    store.userData = { email: 'mail@example.com', amount: 1500000 };
 
     const { getByText } = render(
       <TestWrapper store={store}>

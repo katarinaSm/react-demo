@@ -13,7 +13,7 @@ import useStore from '../hooks/useStore';
 
 const schema = yup.object().shape({
   amount: yup
-    .number('Eh')
+    .number()
     .moreThan(0, 'Show me the money')
     .required('Please enter a number')
     .typeError('Please enter a valid positive number'),
@@ -95,7 +95,7 @@ const InvestorInformation = () => {
               </Box>
             </Box>
           </Box>
-          <Box display="flex" justifyContent="center" p={3}>
+          <Box display="flex" justifyContent="center" p={3} data-testid="button">
             <Button type="submit" variant="contained" color="primary">
               Continue
             </Button>
