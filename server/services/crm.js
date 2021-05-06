@@ -1,16 +1,3 @@
-// https://eu40.lightning.force.com/lightning/page/home
-// https://jsforce.github.io/document/
-// USER: dragansmiljanic-r7q1@force.com
-// LOGIN: https://d09000007k4wdeaq.my.salesforce.com
-// https://dragancom-dev-ed.my.salesforce.com dragan@dragan.com / admin1234
-// reset token: https://dragancom-dev-ed.lightning.force.com/lightning/settings/personal/ResetApiToken/home?url=%2F_ui%2Fsystem%2Fsecurity%2FResetApiTokenConfirm%3FretURL%3D%252Fsetup%252FpersonalInformationSetup.apexp%26setupid%3DResetApiToken
-// DEMO: https://medium.com/netscape/first-time-dev-building-a-fullstack-js-app-for-salesforce-with-oauth-login-jsforce-react-redux-ca5962fb7fe3
-// create account - https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_create.htm
-// Leads DB - https://dragancom-dev-ed.lightning.force.com/lightning/o/Lead/list?filterName=Recent
-// source: https://jsforce.github.io/jsforce/doc/Connection.html
-// get object structure - rest -https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_retrieve_search_layouts.htm?search_text=lead
-// wokrbanch https://workbench.developerforce.com/restExplorer.php
-
 import jsforce from 'jsforce';
 import CrmError from './errors/CrmError';
 import Logger from './logger';
