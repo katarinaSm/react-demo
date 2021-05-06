@@ -115,7 +115,8 @@ describe('ConfirmInfo', () => {
 
   it('should show alert if fetch fails', async () => {
     window.fetch = jest.fn().mockReturnValue(
-      Promise.reject({
+      Promise.resolve({
+        on: false,
         status: 500,
       }),
     );
