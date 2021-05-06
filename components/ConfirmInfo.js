@@ -25,7 +25,7 @@ const ConfirmInfo = () => {
   return (
     <>
       {isAlertShown && (
-        <Alert severity="error">
+        <Alert severity="error" data-testid="alert">
           <AlertTitle>Something went wrong!</AlertTitle>
           Please check you network connection
         </Alert>
@@ -69,6 +69,7 @@ const ConfirmInfo = () => {
                   checked={isTocChecked}
                   onChange={handleChangeToc}
                   inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  data-testid="checkbox"
                 />
               }
               label="I accept the terms and conditions"
@@ -76,14 +77,14 @@ const ConfirmInfo = () => {
             />
           </FormControl>
         </Box>
-        <Box display="flex" p={2} justifyContent="center">
+        <Box display="flex" p={2} justifyContent="center" data-testid="button">
           <Button
             type="button"
             disabled={!isTocChecked || isLoading}
             variant="contained"
             color="primary"
             onClick={submitForm}>
-            {isLoading && <CircularProgress size={20} />}
+            {isLoading && <CircularProgress size={20} data-testid="spinner" />}
             Invest
           </Button>
         </Box>

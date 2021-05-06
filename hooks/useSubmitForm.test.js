@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import useSubmitForm from './useSubmitForm';
+import mockFetch from '../test/mockFetch';
 
 // bad habit to expect a tuple from a hook instead of an object
 const IS_LOADING = 0;
@@ -20,11 +21,13 @@ jest.mock('../hooks/useStore', () => ({
 }));
 
 describe('useSubmitForm', () => {
-  // https://github.com/jsdom/jsdom/issues/1724#issuecomment-675486907
-  // beforeAll(() => jest.spyOn(window, 'fetch')); <== won't work in jsdom
-  global.fetch = jest.fn().mockImplementation(() =>
+  mockFetch(() =>
     Promise.resolve({
-      json: () => Promise.resolve(),
+      status: 200,
+      ok: true,
+      async json() {
+        return { success: true };
+      },
     }),
   );
 

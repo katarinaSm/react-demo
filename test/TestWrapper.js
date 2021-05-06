@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types;';
+import PropTypes from 'prop-types';
 import { Provider } from 'mobx-react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Layout from '../components/Layout';
