@@ -44,7 +44,7 @@ const Project = ({ project, onClick, isActive }) => {
 
 Project.propTypes = {
   project: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
   }),

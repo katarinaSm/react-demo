@@ -23,7 +23,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-param-reassign': 'off',
-    'no-underscore-dangle': ['warn', { allowAfterThis: true }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-fragments': 'off',
     'react/jsx-props-no-spreading': 'off',
@@ -34,5 +33,6 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'react/destructuring-assignment': 'off',
     'react/react-in-jsx-scope': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
