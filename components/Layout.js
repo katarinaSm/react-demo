@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 import { cms } from '../common/cms';
 
-import useStore from '../hooks/useStore';
+import useNavigation from '../hooks/useNavigation';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Layout = ({ children }) => {
-  const store = useStore();
+  const navigation = useNavigation();
   const classes = useStyles();
   const router = useRouter();
-  const pageInfo = store.getCurrentPageInfo(router.asPath);
+  const pageInfo = navigation.getCurrentPageInfo(router.asPath);
   return (
     <div>
       <Stepper activeStep={pageInfo?.number - 1}>

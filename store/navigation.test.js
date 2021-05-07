@@ -1,32 +1,34 @@
 import { push, replace } from 'next/router';
 import Store from './store';
 
-describe('Store', () => {
+describe('Navigation', () => {
+  let navigation;
   let store;
 
   beforeEach(() => {
     store = new Store();
+    navigation = store.navigation;
   });
 
   describe('Page info', () => {
     it('should return meta data of page', () => {
-      expect(store.getCurrentPageInfo('/')).toBeDefined();
+      expect(navigation.getCurrentPageInfo('/')).toBeDefined();
     });
 
     it('should return null if page doesnt exist', () => {
-      expect(store.getCurrentPageInfo('/wrong')).toBeDefined();
+      expect(navigation.getCurrentPageInfo('/wrong')).toBeDefined();
     });
   });
 
   describe('Page traversal and page order', () => {
     it('shouldnt move to 2nd step if project is not defined', () => {
-      store.nextPage('/');
+      navigation.nextPage('/');
       expect(push).toBeCalledTimes(0);
     });
 
     it('should move to 2nd step if project is defined', () => {
       store.currentProject = {};
-      store.nextPage('/');
+      navigation.nextPage('/');
 
       expect(push).toBeCalledTimes(1);
       expect(push).toBeCalledWith('/enter_information');
@@ -34,13 +36,13 @@ describe('Store', () => {
 
     it('should move to 3rd step if project and user data exists', () => {
       store.currentProject = {};
-      store.nextPage('/enter_information');
+      navigation.nextPage('/enter_information');
 
       expect(push).toBeCalledTimes(0);
 
       store.userData = { email: 'email', amount: 1 };
 
-      store.nextPage('/enter_information');
+      navigation.nextPage('/enter_information');
 
       expect(push).toBeCalledTimes(1);
       expect(push).toBeCalledWith('/confirm_information');
@@ -50,22 +52,22 @@ describe('Store', () => {
       store.currentProject = {};
       store.userData = { email: 'email', amount: 1 };
 
-      store.nextPage('/confirm_information');
+      navigation.nextPage('/confirm_information');
 
       expect(push).toBeCalledTimes(0);
 
-      store.isDataSent = true;
+      navigation.isDataSent = true;
 
-      store.nextPage('/confirm_information');
+      navigation.nextPage('/confirm_information');
 
       expect(push).toBeCalledTimes(1);
       expect(push).toBeCalledWith('/final_step');
     });
   });
 
-  describe('Redirectoin to last populated page', () => {
+  describe('Redirection to last populated page', () => {
     it('should redirect to 1st step', () => {
-      store.updateCurrentPage('/final_step');
+      navigation.updateCurrentPage('/final_step');
 
       expect(replace).toBeCalledTimes(1);
       expect(replace).toBeCalledWith('/');

@@ -4,10 +4,12 @@ import { useRouter } from 'next/router';
 import useStore from './useStore';
 import { API_INVESTMENT } from '../common/paths';
 import useAlert from './useAlert';
+import useNavigation from './useNavigation';
 
 const useSubmitForm = () => {
   const [isLoading, setLoading] = useState(false);
   const store = useStore();
+  const navigation = useNavigation();
   const router = useRouter();
   const [isAlertShown, setError] = useAlert();
 
@@ -31,8 +33,8 @@ const useSubmitForm = () => {
           throw new Error(`Request failed with status ${response.status}`);
         }
         setError(false);
-        store.setDataSent(true);
-        store.nextPage(router.asPath);
+        navigation.setDataSent(true);
+        navigation.nextPage(router.asPath);
       })
       .catch(() => {
         setError(true);

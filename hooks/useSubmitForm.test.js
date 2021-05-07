@@ -14,9 +14,11 @@ jest.mock('../hooks/useStore', () => ({
       email: undefined,
       amount: undefined,
     },
-    nextPage: jest.fn(),
-    updateCurrentPage: jest.fn(),
-    setDataSent: jest.fn(),
+    navigation: {
+      nextPage: jest.fn(),
+      updateCurrentPage: jest.fn(),
+      setDataSent: jest.fn(),
+    },
   }),
 }));
 

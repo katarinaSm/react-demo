@@ -21,10 +21,10 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      store.updateCurrentPage(url);
+      store.navigation.updateCurrentPage(url);
     };
     router.events.on(ROUTER_CHANGE_START, handleRouteChange);
-    store.updateCurrentPage(router.pathname);
+    handleRouteChange(router.pathname);
     return () => {
       router.events.off(ROUTER_CHANGE_START, handleRouteChange);
     };

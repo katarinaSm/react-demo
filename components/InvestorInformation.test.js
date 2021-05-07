@@ -50,7 +50,7 @@ describe('InvestorInformation', () => {
       await userEvent.click(queryByText('Continue'));
     });
 
-    expect(store.nextPage).not.toBeCalled();
+    expect(store.navigation.nextPage).not.toBeCalled();
   });
 
   it('Should validate email and number', async () => {
@@ -87,6 +87,6 @@ describe('InvestorInformation', () => {
 
     expect(queryByText('Please provide a valid email address')).toBeNull();
     expect(queryByText('Please enter a valid positive number')).toBeNull();
-    expect(store.nextPage).toBeCalled();
+    expect(store.navigation.nextPage).toBeCalled();
   });
 });

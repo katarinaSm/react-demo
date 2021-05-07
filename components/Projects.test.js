@@ -72,6 +72,6 @@ describe('Projects', () => {
     });
 
     expect(store.setProject).toBeCalledTimes(1);
-    expect(store.nextPage).toBeCalledTimes(1);
+    expect(store.navigation.nextPage).toBeCalledTimes(1);
   });
 });

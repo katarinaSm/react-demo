@@ -110,7 +110,7 @@ describe('ConfirmInfo', () => {
     });
 
     expect(window.fetch).toBeCalled();
-    expect(store.nextPage).toBeCalled();
+    expect(store.navigation.nextPage).toBeCalled();
   });
 
   it('should show alert if fetch fails', async () => {
@@ -145,6 +145,6 @@ describe('ConfirmInfo', () => {
     expect(queryByTestId('alert')).toBeNull();
 
     expect(window.fetch).toBeCalled();
-    expect(store.nextPage).not.toBeCalled();
+    expect(store.navigation.nextPage).not.toBeCalled();
   });
 });

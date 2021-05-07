@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import useStore from '../hooks/useStore';
 import { PROJECT_LIST_API_EP } from '../common/paths';
 import Project from './Project';
+import useNavigation from '../hooks/useNavigation';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,6 +26,7 @@ const Projects = () => {
   );
 
   const store = useStore();
+  const navigation = useNavigation();
 
   useEffect(() => {
     store.setProjects(data?.projects);
@@ -33,9 +35,9 @@ const Projects = () => {
   const onClick = useCallback(
     (project) => {
       store.setProject(project);
-      store.nextPage(router.asPath);
+      navigation.nextPage(router.asPath);
     },
-    [store, router.asPath],
+    [store, navigation, router.asPath],
   );
 
   const classes = useStyles();

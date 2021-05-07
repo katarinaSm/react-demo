@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 
 import useStore from '../hooks/useStore';
+import useNavigation from '../hooks/useNavigation';
 
 const schema = yup.object().shape({
   amount: yup
@@ -25,6 +26,7 @@ const schema = yup.object().shape({
 
 const InvestorInformation = () => {
   const store = useStore();
+  const navigation = useNavigation();
   const router = useRouter();
 
   const {
@@ -41,9 +43,9 @@ const InvestorInformation = () => {
   const onSubmit = useCallback(
     (data) => {
       store.setUserData(data);
-      store.nextPage(router.asPath);
+      navigation.nextPage(router.asPath);
     },
-    [store, router],
+    [store, navigation, router],
   );
 
   return (
