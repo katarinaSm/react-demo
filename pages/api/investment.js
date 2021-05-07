@@ -5,6 +5,9 @@ import { addInvestment, validateInvestment } from '../../server/services/investm
 import db from '../../server/services/db';
 import { sendEmail } from '../../server/services/email';
 import { addInvestmentToCrm } from '../../server/services/crm';
+import Logger from '../../server/services/logger';
+
+const log = Logger('api:investment');
 
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 const OK = 200;
@@ -15,9 +18,21 @@ const BAD_GATEWAY = 503;
 
 let simulateError = 0;
 
-export default async function handler(req, res) {
-  // slow down in order to make animation visible
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // sleep(3000)
+// not a pattern that I will suggested to use
+// demonstrates how can an exception be ignored
+const ignoreException = async (fn, ...args) => {
+  try {
+    await fn(...args);
+  } catch (e) {
+    log.error(e.message);
+  }
+};
+
+const handler = async (req, res) => {
+  if (process.env.SIMULATE_NETWORK_LOAD === 'true') {
+    // slow down in order to make animation visible
+    await new Promise((resolve) => setTimeout(resolve, 3000)); // sleep(3000)
+  }
 
   if (req.method !== 'POST') {
     res.status(METHOD_NOT_ALLOWED).end();
@@ -32,12 +47,11 @@ export default async function handler(req, res) {
   }
 
   simulateError += 1;
-  if (simulateError % 2 !== 0) {
+  if (simulateError % 2 !== 0 && process.env.SIMULATE_NETWORK_LOAD === 'true') {
     // simulate error in order to demonstrate alert
     res.status(BAD_GATEWAY).json({});
     return;
   }
-
   try {
     // returns inserted object - we are not interested in it here
     await db.transaction(async (trx) => {
@@ -46,28 +60,21 @@ export default async function handler(req, res) {
       // will throw an exception on failure
       // should be business decision whether the data will be saved in DB
       // For this demo we won't save if CMR update/patch fails
-      addInvestmentToCrm(investment);
+      await addInvestmentToCrm(investment);
 
       // won't throw exception - on failure will add email to queue
       // or can use email provider with retry mechanism
-      sendEmail(investment);
+      await ignoreException(sendEmail, investment);
     });
     res.status(OK).json({});
   } catch (err) {
+    // don't expose actual  error messages in production
+    // for demo purpose messages of errors will be part of a failed response
+    log.debug(err?.message);
     res.status(INTERNAL_SERVER_ERROR).json({
-      // don't expose actual db error message in production
       message: err?.message,
     });
   }
+};
 
-  /*
-    TEST:
-    db.select('*')
-      .from('investors')
-      .then(rows => {
-        res.status(200).json(rows)
-      })
-      .catch(err => {
-          res.status(500).json({ error: 'n/a' })
-      }) */
-}
+export default handler;

@@ -2,10 +2,9 @@ import sgMail from '@sendgrid/mail';
 import { tracking } from './tracking';
 import Logger from './logger';
 import { formatCurrency } from '../../common/intl';
+import EmailDeliveryError from './errors/EmailDeliveryError';
 
 const log = Logger('email');
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const EMAIL_SENT = 'EMAIL_SENT';
 const EMAIL_SEND_FAILED = 'EMAIL_SEND_FAILED';
@@ -30,22 +29,21 @@ const isBlacklisted = (email) => false; // TODO: implement me
 export const sendEmail = async ({ email, investment_amount }) => {
   log.debug(`Send email to ${email}`);
   if (isFreud(email)) {
-    log.info(`Freud ${email} rejected`);
     tracking.write(FREUD_EMAIL_REJECTED, email);
+    throw new EmailDeliveryError('Freud detected');
   }
 
   if (isBlacklisted(email)) {
-    log.info(`Blacklisted ${email} rejected`);
     tracking.write(BLACKLISTED_EMAIL_REJECTED, email);
-    return;
+    throw new EmailDeliveryError('Blacklisted mail rejected');
   }
   try {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     await sgMail.send(setMessage(email, investment_amount));
-    log.info(`Email sent to ${email}`);
     tracking.write(EMAIL_SENT, email);
   } catch (e) {
     // TODO:  handle unsuccessfully sent email - for example store it in a queue
-    log.error(`Failed to send email to ${email}`);
     tracking.write(EMAIL_SEND_FAILED, email);
+    throw new EmailDeliveryError('Email delivery failed');
   }
 };

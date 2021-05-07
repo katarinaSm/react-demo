@@ -57,7 +57,8 @@ const addLead = async (email, amount) => {
       status: LEAD_INITIAL_STATUS,
     });
   } catch (e) {
-    throw new CrmError('Failed to create a lead');
+    log.error(e);
+    throw new CrmError(`Failed to create a lead`);
   }
 };
 

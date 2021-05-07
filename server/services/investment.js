@@ -6,7 +6,7 @@ const log = Logger('investment');
 
 const INVESTORS = 'investors';
 
-export const addInvestment = (trx, investor) => {
+export const addInvestment = async (trx, investor) => {
   log.debug(
     `Add investor email=${investor.email} amount=${investor.investment_amount} project=${investor.project_id}`,
   );
