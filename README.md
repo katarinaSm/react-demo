@@ -57,6 +57,7 @@ If this is the case, please, stop the application, remove `.next` folder (known 
 - code linting (https://eslint.org/, https://prettier.io/)
 - private methods of the class (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
 - usage of Intl namespace used to provide i18n API (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+- testing hooks, mocking or modules, dealing with timers, testing of transient states of controls (async-await)
 
 ### Improvements
 
@@ -69,7 +70,6 @@ If this is the case, please, stop the application, remove `.next` folder (known 
 - flow flexibility (order of the pages depends on method defined in store - please check the comment in the code)
 - add masked form for amount
 - fraud prevention (captcha)
-- unit tests
 - e2e tests
 
 *Please note*: the original requirement was to provide a different flow:
