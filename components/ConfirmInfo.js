@@ -48,7 +48,7 @@ const ConfirmInfo = () => {
           <Box width="150px" p={1}>
             email
           </Box>
-          <Box flexGrow={1} p={1}>
+          <Box flexGrow={1} p={1} data-testid="email">
             {store.userData?.email}
           </Box>
         </Box>
@@ -56,7 +56,7 @@ const ConfirmInfo = () => {
           <Box width="150px" p={1}>
             amount
           </Box>
-          <Box flexGrow={1} p={1}>
+          <Box flexGrow={1} p={1} data-testid="amount">
             {formatCurrency(store.userData?.amount ?? 0)}
           </Box>
         </Box>

@@ -67,6 +67,7 @@ const InvestorInformation = () => {
                   placeholder="Your email address"
                   variant="outlined"
                   fullWidth
+                  data-testid="email"
                 />
               )}
             />
@@ -88,6 +89,7 @@ const InvestorInformation = () => {
                       placeholder="Investment amount"
                       variant="outlined"
                       fullWidth
+                      data-testid="amount"
                     />
                   )}
                 />

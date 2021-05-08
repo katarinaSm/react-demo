@@ -58,6 +58,7 @@ If this is the case, please, stop the application, remove `.next` folder (known 
 - private methods of the class (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields)
 - usage of Intl namespace used to provide i18n API (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 - testing hooks, mocking or modules, dealing with timers, testing of transient states of controls (async-await)
+- e2e tests based on Nightwatch
 
 ### Improvements
 
@@ -70,7 +71,7 @@ If this is the case, please, stop the application, remove `.next` folder (known 
 - flow flexibility (order of the pages depends on method defined in store - please check the comment in the code)
 - add masked form for amount
 - fraud prevention (captcha)
-- e2e tests
+
 
 *Please note*: the original requirement was to provide a different flow:
 - on submission, an info alert should be shown. The current implementation has additional "thanks" page.
@@ -144,6 +145,13 @@ Whenever exposed function `setError():fn(boolean) -> void` is called with a trut
 is called while `isAlertShown=true`, the period while `isAlertShown` remains `true` will be
 extended by additionally `VISIBLE_FOR_MS` ms.
 
+### e2e
+
+Execute 
+
+~~~
+yarn e2e
+~~~
 
 ### Postgres 
 
