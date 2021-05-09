@@ -36,13 +36,13 @@ const InvestorInformation = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      ...store.userData,
+      ...store.investorData,
     },
   });
 
   const onSubmit = useCallback(
     (data) => {
-      store.setUserData(data);
+      store.setInvestorData(data);
       navigation.nextPage(router.asPath);
     },
     [store, navigation, router],

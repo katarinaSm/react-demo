@@ -216,6 +216,9 @@ curl -X POST http://localhost:3000/api/investment
 ### Dev notes
 `yarn add --dev @types/jest` <== to get rid of warnings in Jest test files
 `yarn add --dev typescript` <== add typescript modules
+Fix ts interface issue:
+https://stackoverflow.com/questions/55807329/why-eslint-throws-no-unused-vars-for-typescript-interface
+    
 
 -------------
 

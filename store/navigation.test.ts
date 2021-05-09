@@ -40,7 +40,7 @@ describe('Navigation', () => {
 
       expect(push).toBeCalledTimes(0);
 
-      store.userData = { email: 'email', amount: 1 };
+      store.investorData = { email: 'email', amount: 1 };
 
       navigation.nextPage('/enter_information');
 
@@ -50,7 +50,7 @@ describe('Navigation', () => {
 
     it('should move to 4th step if all data and user consent are provided', () => {
       store.currentProject = {};
-      store.userData = { email: 'email', amount: 1 };
+      store.investorData = { email: 'email', amount: 1 };
 
       navigation.nextPage('/confirm_information');
 

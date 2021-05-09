@@ -9,7 +9,7 @@ module.exports = {
   },
   // https://stackoverflow.com/questions/55198502/using-eslint-with-typescript-unable-to-resolve-path-to-module/56696478#56696478
   extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'plugin:import/typescript'],
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -17,7 +17,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', 'prettier', 'jest-dom'],
+  plugins: ['react', 'react-hooks', 'prettier', 'jest-dom', '@typescript-eslint'],
   rules: {
     camelcase: 'off',
     'class-methods-use-this': 'off',
@@ -51,5 +51,7 @@ module.exports = {
       'error',
       { devDependencies: ['**/*.test.js', '**/*.test.ts', '**/*.test.tsx'] },
     ],
+    // https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined/64024916#64024916
+    'no-use-before-define': 'off',
   },
 };

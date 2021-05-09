@@ -1,8 +1,13 @@
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
 import { cms } from '../common/cms';
+import type IStore from './store.type';
 
 class Navigation {
+  isDataSent: boolean;
+
+  parent: IStore;
+
   constructor(parent) {
     this.isDataSent = false;
     this.parent = parent;
@@ -21,7 +26,7 @@ class Navigation {
   }
 
   getCurrentPageInfo(url) {
-    const currentPageIndex = this.#getCurrentPageIndex(url);
+    const currentPageIndex = this.getCurrentPageIndex(url);
     if (currentPageIndex !== -1) {
       return cms[currentPageIndex];
     }
@@ -29,8 +34,8 @@ class Navigation {
   }
 
   nextPage(url) {
-    const currentPageIndex = this.#getCurrentPageIndex(url);
-    const maxAllowedIndex = this.#validatePages();
+    const currentPageIndex = this.getCurrentPageIndex(url);
+    const maxAllowedIndex = this.validatePages();
     if (currentPageIndex < maxAllowedIndex) {
       const { page } = cms[currentPageIndex + 1];
       Router.push(page);
@@ -39,8 +44,8 @@ class Navigation {
   }
 
   updateCurrentPage(url) {
-    const currentPageIndex = this.#getCurrentPageIndex(url);
-    const visitedPageMaxIndex = this.#validatePages();
+    const currentPageIndex = this.getCurrentPageIndex(url);
+    const visitedPageMaxIndex = this.validatePages();
     if (currentPageIndex >= visitedPageMaxIndex + 1) {
       const { page } = cms[visitedPageMaxIndex];
       if (page !== url) {
@@ -49,12 +54,12 @@ class Navigation {
     }
   }
 
-  #getCurrentPageIndex(url) {
+  private getCurrentPageIndex(url) {
     return cms.findIndex((data) => data.page === url);
   }
 
   // TODO: this won't scale for dynamical forms - move the condition to "cms" file
-  #validatePages() {
+  private validatePages() {
     let i = 0;
     for (; /* intentionally empty */ i < cms.length; i += 1) {
       if (!cms[i].isPageFormValid(this.parent)) {

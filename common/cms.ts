@@ -12,7 +12,7 @@ export const cms = [
     id: 'step2',
     number: 2,
     isPageFormValid: (store) =>
-      !!(store.userData.amount !== undefined && store.userData.email !== undefined),
+      !!(store.investorData.amount > 0 && store.investorData.email !== undefined),
   },
   {
     title: 'Confirm your information',
@@ -29,20 +29,3 @@ export const cms = [
     isPageFormValid: () => false,
   },
 ];
-
-/*
-
-    let maxIndex = 0;
-    if (!this.currentProject) {
-      return maxIndex;
-    }
-    maxIndex += 1;
-    if (this.userData.amount !== undefined && this.userData.email !== undefined) {
-      maxIndex += 1;
-    }
-    if (!this.isDataSent) {
-      return maxIndex;
-    }
-    maxIndex += 1;
-    return maxIndex;
- */

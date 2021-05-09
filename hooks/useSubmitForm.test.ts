@@ -10,9 +10,9 @@ const SUBMIT_FORM = 2;
 jest.mock('../hooks/useStore', () => ({
   __esModule: true,
   default: () => ({
-    userData: {
-      email: undefined,
-      amount: undefined,
+    investorData: {
+      email: null,
+      amount: 0,
     },
     navigation: {
       nextPage: jest.fn(),

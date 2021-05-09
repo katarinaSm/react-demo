@@ -16,8 +16,8 @@ const useSubmitForm = () => {
   const submitForm = () => {
     setLoading(true);
     const payload = {
-      email: store.userData.email,
-      investment_amount: `${store.userData.amount}`,
+      email: store.investorData.email,
+      investment_amount: `${store.investorData.amount}`,
       project_id: store.currentProjectInfo?.id,
     };
     window

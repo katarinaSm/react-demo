@@ -1,20 +1,33 @@
 import { action, computed, observable, makeObservable } from 'mobx';
 import Navigation from './navigation';
+import InvestorData from './investorData';
+import type IStore from './store.type';
 
-class Store {
+export interface ProjectData {
+  id: number;
+  title: string;
+  name: string;
+}
+
+class Store implements IStore {
+  investorData: InvestorData;
+
+  currentProject: ProjectData | null;
+
+  projects: ProjectData[];
+
+  navigation: Navigation;
+
   constructor() {
-    this.userData = {
-      email: undefined,
-      amount: undefined,
-    };
     this.currentProject = null;
     this.projects = [];
     this.navigation = new Navigation(this);
+    this.investorData = new InvestorData();
 
     makeObservable(this, {
-      userData: observable,
+      investorData: observable,
       currentProject: observable,
-      setUserData: action,
+      setInvestorData: action,
       setProjects: action,
       setProject: action,
       reset: action,
@@ -34,15 +47,12 @@ class Store {
     this.projects = projects ?? [];
   }
 
-  setUserData(userData) {
-    this.userData = userData;
+  setInvestorData(investorData) {
+    this.investorData = investorData;
   }
 
   reset() {
-    this.userData = {
-      email: undefined,
-      amount: undefined,
-    };
+    this.investorData.reset();
     this.currentProject = null;
   }
 }

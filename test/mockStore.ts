@@ -9,11 +9,11 @@ export const getMockStore = () => ({
   },
   currentProject: null,
   projects: [],
-  userData: {
-    email: undefined,
-    amount: undefined,
+  investorData: {
+    email: null,
+    amount: 0,
   },
-  setUserData: jest.fn(),
+  setInvestorData: jest.fn(),
   setProjects: jest.fn(),
   setProject: jest.fn(),
   currentProjectInfo: jest.fn(), // getter
