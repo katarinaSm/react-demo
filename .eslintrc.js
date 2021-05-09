@@ -7,7 +7,8 @@ module.exports = {
     jest: true,
     jasmine: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
+  // https://stackoverflow.com/questions/55198502/using-eslint-with-typescript-unable-to-resolve-path-to-module/56696478#56696478
+  extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'plugin:import/typescript'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
@@ -23,7 +24,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-param-reassign': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
     'react/jsx-fragments': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/require-default-props': 'off',
@@ -34,5 +35,21 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-underscore-dangle': 'off',
+    // https://stackoverflow.com/questions/59265981/typescript-eslint-missing-file-extension-ts-import-extensions
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    // https://www.gitmemory.com/issue/testing-library/react-testing-library/491/534740560
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.js', '**/*.test.ts', '**/*.test.tsx'] },
+    ],
   },
 };

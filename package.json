@@ -6,7 +6,7 @@
     "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext=.js common components hooks pages store server",
+    "lint": "eslint --ext={.js,.ts,.tsx} common components hooks pages store server",
     "prettier": "prettier --write common components hooks pages store server",
     "migrate:latest": "knex migrate:latest",
     "test": "jest --watch",
@@ -60,6 +60,7 @@
     "jest": "^26.6.3",
     "nightwatch": "^1.6.3",
     "node-mocks-http": "^1.10.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.4"
   }
 }
