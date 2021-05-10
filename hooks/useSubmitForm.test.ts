@@ -58,7 +58,7 @@ describe('useSubmitForm', () => {
   it('should show alert on error', async () => {
     const { result } = renderHook(() => useSubmitForm());
 
-    window.fetch.mockResolvedValueOnce(
+    (window.fetch as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         status: 500,
         async json() {
@@ -68,7 +68,7 @@ describe('useSubmitForm', () => {
     );
 
     await act(async () => {
-      await result.current[SUBMIT_FORM](true);
+      await result.current[SUBMIT_FORM]();
       expect(result.current[IS_LOADING]).toBeTruthy();
     });
 
@@ -82,7 +82,7 @@ describe('useSubmitForm', () => {
 
     const { result } = renderHook(() => useSubmitForm());
 
-    window.fetch.mockResolvedValueOnce(
+    (window.fetch as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         status: 500,
         async json() {
@@ -92,7 +92,7 @@ describe('useSubmitForm', () => {
     );
 
     await act(async () => {
-      result.current[SUBMIT_FORM](true);
+      result.current[SUBMIT_FORM]();
     });
 
     expect(result.current[IS_ALERT_SHOWN]).toBeTruthy();
