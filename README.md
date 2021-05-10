@@ -150,8 +150,13 @@ extended by additionally `VISIBLE_FOR_MS` ms.
 Execute 
 
 ~~~
+yarn build
+yarn start
+# new console
 yarn e2e
 ~~~
+
+*Please note*: e2e test will likely fail if the application is run in debug mode as `watch` is running.
 
 ### Postgres 
 

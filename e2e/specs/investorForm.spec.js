@@ -12,7 +12,7 @@ export const navigateToInfoPage = (browser) => {
 }
 
 const EMAIL_VALIDATION_ERROR = 'Email is a required field';
-const AMOUNT_VALIDATION_ERROR = 'Please enter a valid positive number';
+const AMOUNT_VALIDATION_ERROR = 'Expected a positive number';
 
 describe('Investors data form', () => {
   it('Should open confirm info page after submission of valid form', (browser) => {
