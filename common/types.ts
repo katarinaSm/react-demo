@@ -45,3 +45,9 @@ export interface IProject {
   name: string;
   location: string;
 }
+
+export interface IInvestmentPayload {
+  email: string;
+  investment_amount: number;
+  project_id: number;
+}

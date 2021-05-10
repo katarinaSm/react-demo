@@ -1,10 +1,10 @@
-import knex from 'knex';
+import knex, { Knex } from 'knex';
 import dotenv from 'dotenv';
 import Logger from './logger';
 
 const log = Logger('db');
 
-const dbLogger = {
+const dbLogger: Knex.Logger = {
   debug: (x) => log.debug(JSON.stringify(x)),
   warn: (x) => log.warn(JSON.stringify(x)),
   deprecate: (x) => log.warn(JSON.stringify(x)),

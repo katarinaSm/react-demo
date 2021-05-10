@@ -31,7 +31,7 @@ const PAYLOAD = {
 
 describe('investment API EP', () => {
   beforeEach(() => {
-    db.transaction.mockImplementation(async (fn) => {
+    (db.transaction as jest.Mock).mockImplementation(async (fn) => {
       try {
         await fn();
         return Promise.resolve(INVESTMENT_RESPONSE);
@@ -39,8 +39,8 @@ describe('investment API EP', () => {
         throw new Error(e.message);
       }
     });
-    validateInvestment.mockReturnValue(true);
-    addInvestment.mockReturnValue(Promise.resolve());
+    (validateInvestment as jest.Mock).mockReturnValue(true);
+    (addInvestment as jest.Mock).mockReturnValue(Promise.resolve());
   });
 
   it('should add investment', async () => {
@@ -56,7 +56,7 @@ describe('investment API EP', () => {
   });
 
   it('should fail if investment is not saved to db', async () => {
-    addInvestment.mockImplementationOnce(() => {
+    (addInvestment as jest.Mock).mockImplementationOnce(() => {
       throw new Error(`Connection to 127.0.0.1:5234 refused`);
     });
     const { req, res } = createMocks({
@@ -71,7 +71,7 @@ describe('investment API EP', () => {
   });
 
   it('should fail if investment is not added to CRM', async () => {
-    addInvestmentToCrm.mockImplementationOnce(() => {
+    (addInvestmentToCrm as jest.Mock).mockImplementationOnce(() => {
       throw new CrmError(`Failed to create a lead`);
     });
     const { req, res } = createMocks({
@@ -86,7 +86,7 @@ describe('investment API EP', () => {
   });
 
   it('should ignore failure on email delivery', async () => {
-    sendEmail.mockImplementationOnce(() => {
+    (sendEmail as jest.Mock).mockImplementationOnce(() => {
       throw new EmailDeliveryError('Email delivery failed');
     });
     const { req, res } = createMocks({
@@ -100,7 +100,7 @@ describe('investment API EP', () => {
   });
 
   it('should return BAD_REQUEST status for an invalid payload', async () => {
-    validateInvestment.mockReturnValueOnce(false);
+    (validateInvestment as jest.Mock).mockReturnValueOnce(false);
 
     const { req, res } = createMocks({
       method: 'POST',
@@ -113,7 +113,7 @@ describe('investment API EP', () => {
   });
 
   it('should return METHOD_NOT_ALLOWED status if POST method is not used', async () => {
-    sendEmail.mockImplementationOnce(() => {
+    (sendEmail as jest.Mock).mockImplementationOnce(() => {
       throw new EmailDeliveryError('Email delivery failed');
     });
     const { req, res } = createMocks({

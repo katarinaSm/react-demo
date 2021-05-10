@@ -1,6 +1,7 @@
 import jsforce from 'jsforce';
 import CrmError from './errors/CrmError';
 import Logger from './logger';
+import { IInvestmentPayload } from '../../common/types';
 
 const log = Logger('crm');
 
@@ -14,14 +15,14 @@ conn
   .login(
     process.env.SF_USER_NAME,
     `${process.env.SF_PASSWORD}${process.env.SF_AUTH_TOKEN}`,
-    (err, userInfo) => {
-      // don't expose accessToken in production log!!!
-      log.debug(conn.accessToken);
-      log.debug(conn.instanceUrl);
-      // logged in user property
-      log.debug(`User ID: ${userInfo.id}`);
-      log.debug(`Org ID: ${userInfo.organizationId}`);
-    },
+    // (err, userInfo) => {
+    //   // don't expose accessToken in production log!!!
+    //   log.debug(conn.accessToken);
+    //   log.debug(conn.instanceUrl);
+    //   // logged in user property
+    //   log.debug(`User ID: ${userInfo.id}`);
+    //   log.debug(`Org ID: ${userInfo.organizationId}`);
+    // },
   )
   .then(({ id, organizationId }) =>
     log.debug(`Logged in id=${id}, organizationId=${organizationId}`),
@@ -41,7 +42,7 @@ const getCampaignToProjectMapping = async () => {
   }
 };
 
-const addLead = async (email, amount) => {
+const addLead = async (email: string, amount: number) => {
   try {
     // just for demo - to make SalesForce happy
     const [fakeFullName, fakeCompany] = email.split('@');
@@ -62,7 +63,7 @@ const addLead = async (email, amount) => {
   }
 };
 
-const assignLeadToCampaign = async (leadId, campaignId) => {
+const assignLeadToCampaign = async (leadId: string, campaignId: string) => {
   try {
     return await conn.sobject('campaignMember').create({ leadId, campaignId });
   } catch (e) {
@@ -74,7 +75,7 @@ export const addInvestmentToCrm = async ({
   email,
   investment_amount: amount,
   project_id: projectId,
-}) => {
+}: IInvestmentPayload): Promise<void> => {
   log.debug({ amount, projectId });
   const mapping = await getCampaignToProjectMapping();
   log.debug(`mapping=${JSON.stringify(mapping)}`);

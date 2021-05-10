@@ -5,6 +5,7 @@ import useStore from './useStore';
 import { API_INVESTMENT } from '../common/paths';
 import useAlert from './useAlert';
 import useNavigation from './useNavigation';
+import { IInvestmentPayload } from '../common/types';
 
 const useSubmitForm: () => [boolean, boolean, () => void] = () => {
   const [isLoading, setLoading] = useState(false);
@@ -15,9 +16,9 @@ const useSubmitForm: () => [boolean, boolean, () => void] = () => {
 
   const submitForm = () => {
     setLoading(true);
-    const payload = {
+    const payload: IInvestmentPayload = {
       email: store.investorData.email,
-      investment_amount: `${store.investorData.amount}`,
+      investment_amount: store.investorData.amount,
       project_id: store.getCurrentProjectInfo()?.id,
     };
     window

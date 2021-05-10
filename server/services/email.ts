@@ -11,7 +11,7 @@ const EMAIL_SEND_FAILED = 'EMAIL_SEND_FAILED';
 const FREUD_EMAIL_REJECTED = 'FREUD_EMAIL_REJECTED';
 const BLACKLISTED_EMAIL_REJECTED = 'BLACKLISTED_EMAIL_REJECTED';
 
-const setMessage = (email, investment_amount) => ({
+const setMessage = (email: string, investment_amount: number) => ({
   to: email,
   from: 'test@example.com',
   subject: 'Investment',
@@ -21,12 +21,18 @@ const setMessage = (email, investment_amount) => ({
 });
 
 // eslint-disable-next-line no-unused-vars
-const isFreud = (email) => false;
+const isFreud = (email: string): boolean => false;
 
 // eslint-disable-next-line no-unused-vars
-const isBlacklisted = (email) => false; // TODO: implement me
+const isBlacklisted = (email: string): boolean => false; // TODO: implement me
 
-export const sendEmail = async ({ email, investment_amount }) => {
+export const sendEmail = async ({
+  email,
+  investment_amount,
+}: {
+  email: string;
+  investment_amount: number;
+}) => {
   log.debug(`Send email to ${email}`);
   if (isFreud(email)) {
     tracking.write(FREUD_EMAIL_REJECTED, email);
