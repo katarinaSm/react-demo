@@ -53,5 +53,6 @@ module.exports = {
     ],
     // https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined/64024916#64024916
     'no-use-before-define': 'off',
+    'no-unused-vars': 'off',
   },
 };

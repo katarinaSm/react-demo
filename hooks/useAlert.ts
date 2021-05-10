@@ -8,7 +8,7 @@ const VISIBLE_FOR_MS = 3000;
  * First item of tuple determines visibility of alert
  * Second item is used to trigger alert
  */
-const useAlert = () => {
+const useAlert: () => [boolean, (value: boolean) => void] = () => {
   const [hasError, setError] = useState(false);
   const [isAlertShown, setAlertShown] = useState(false);
 

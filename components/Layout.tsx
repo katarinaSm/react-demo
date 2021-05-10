@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +9,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Container from '@material-ui/core/Container';
 import { useRouter } from 'next/router';
 
-import { cms } from '../common/cms';
+import { pagesConfig } from '../common/pagesConfig';
 
 import useNavigation from '../hooks/useNavigation';
 
@@ -21,15 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: PropsWithChildren<unknown>) => {
   const navigation = useNavigation();
   const classes = useStyles();
   const router = useRouter();
   const pageInfo = navigation.getCurrentPageInfo(router.asPath);
   return (
     <div>
-      <Stepper activeStep={pageInfo?.number - 1}>
-        {cms.map(({ title, id }) => (
+      <Stepper activeStep={pageInfo?.pageIndex - 1}>
+        {pagesConfig.map(({ title, id }) => (
           <Step key={id}>
             <StepLabel>{title}</StepLabel>
           </Step>
@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
       </Stepper>
       <Typography variant="h6" component="h6" align="center">
         Step
-        {pageInfo?.number}
+        {pageInfo?.pageIndex}
       </Typography>
       <Typography variant="h6" component="h6" align="center" gutterBottom>
         {pageInfo?.title}

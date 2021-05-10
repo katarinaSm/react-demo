@@ -1,20 +1,21 @@
 import { makeObservable, observable } from 'mobx';
 
 class InvestorData {
-  email: string | null;
+  email: string;
 
   amount: number;
 
   constructor() {
-    this.reset();
     makeObservable(this, {
       email: observable,
       amount: observable,
     });
+
+    this.reset();
   }
 
   reset() {
-    this.email = null;
+    this.email = '';
     this.amount = 0;
   }
 }

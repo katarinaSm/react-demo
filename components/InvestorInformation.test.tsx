@@ -4,9 +4,10 @@ import userEvent from '@testing-library/user-event';
 import TestWrapper from '../test/TestWrapper';
 import InvestorInformation from './InvestorInformation';
 import { getMockStore } from '../test/mockStore';
+import { IStore } from '../common/types';
 
 describe('InvestorInformation', () => {
-  let store;
+  let store: IStore;
   beforeEach(() => {
     store = getMockStore();
   });
@@ -32,11 +33,11 @@ describe('InvestorInformation', () => {
     await act(async () => {
       // https://github.com/react-hook-form/react-hook-form/issues/532
       // fireEvent.submit(getByTestId('button').querySelector('button')); <== didn't work
-      await getByTestId('button').querySelector('button').click();
+      getByTestId('button').querySelector('button').click();
     });
 
     expect(queryByText('Email is a required field')).toBeInTheDocument();
-    expect(queryByText('Please enter a valid positive number')).toBeInTheDocument();
+    expect(queryByText('Expected a positive number')).toBeInTheDocument();
   });
 
   it('Shouldnt traverse to the next page if validation fails', async () => {

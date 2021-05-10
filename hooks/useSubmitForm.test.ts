@@ -1,26 +1,16 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useSubmitForm from './useSubmitForm';
+
 import mockFetch from '../test/mockFetch';
+import { getMockStore } from '../test/mockStore';
+import useStore from './useStore';
+import useSubmitForm from './useSubmitForm';
 
 // bad habit to expect a tuple from a hook instead of an object
 const IS_LOADING = 0;
 const IS_ALERT_SHOWN = 1;
 const SUBMIT_FORM = 2;
 
-jest.mock('../hooks/useStore', () => ({
-  __esModule: true,
-  default: () => ({
-    investorData: {
-      email: null,
-      amount: 0,
-    },
-    navigation: {
-      nextPage: jest.fn(),
-      updateCurrentPage: jest.fn(),
-      setDataSent: jest.fn(),
-    },
-  }),
-}));
+jest.mock('../hooks/useStore');
 
 describe('useSubmitForm', () => {
   mockFetch(() =>
@@ -32,6 +22,7 @@ describe('useSubmitForm', () => {
       },
     }),
   );
+  (useStore as jest.Mock).mockImplementation(getMockStore);
 
   it('should initially hide alert and loader', () => {
     const { result } = renderHook(() => useSubmitForm());
@@ -44,7 +35,7 @@ describe('useSubmitForm', () => {
   it('should show loader', async () => {
     const { result } = renderHook(() => useSubmitForm());
 
-    window.fetch.mockResolvedValueOnce(
+    (window.fetch as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         status: 200,
         ok: true,
@@ -55,7 +46,7 @@ describe('useSubmitForm', () => {
     );
 
     await act(async () => {
-      await result.current[SUBMIT_FORM](true);
+      await result.current[SUBMIT_FORM]();
       expect(result.current[IS_LOADING]).toBeTruthy();
     });
 

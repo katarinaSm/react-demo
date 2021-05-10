@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type ProjectData = {};
+
 const Projects = () => {
   const router = useRouter();
   const { isLoading, error, data } = useQuery('fetchProjs', () =>
@@ -34,7 +36,7 @@ const Projects = () => {
 
   const onClick = useCallback(
     (project) => {
-      store.setProject(project);
+      store.setCurrentProjectInfo(project);
       navigation.nextPage(router.asPath);
     },
     [store, navigation, router.asPath],

@@ -30,18 +30,13 @@ const ConfirmInfo = () => {
           Please check you network connection
         </Alert>
       )}
-      <Box
-        spacing={2}
-        display="flex"
-        flexDirection="column"
-        alignContent="stretch"
-        alignItems="flex-start">
+      <Box display="flex" flexDirection="column" alignContent="stretch" alignItems="flex-start">
         <Box display="flex" flexDirection="row">
           <Box width="150px" p={1}>
             project
           </Box>
           <Box flexGrow={1} p={1}>
-            {store.currentProjectInfo?.name}
+            {store.getCurrentProjectInfo()?.name}
           </Box>
         </Box>
         <Box display="flex" flexDirection="row">
@@ -49,7 +44,7 @@ const ConfirmInfo = () => {
             email
           </Box>
           <Box flexGrow={1} p={1} data-testid="email">
-            {store.investorData.email}
+            {store.investorData?.email}
           </Box>
         </Box>
         <Box display="flex" flexDirection="row">
@@ -57,7 +52,7 @@ const ConfirmInfo = () => {
             amount
           </Box>
           <Box flexGrow={1} p={1} data-testid="amount">
-            {formatCurrency(store.investorData.amount)}
+            {formatCurrency(store.investorData?.amount)}
           </Box>
         </Box>
         <Box p={2}>

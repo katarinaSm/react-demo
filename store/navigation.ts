@@ -1,14 +1,15 @@
 import { action, observable, makeObservable } from 'mobx';
 import Router from 'next/router';
-import { cms } from '../common/cms';
-import type IStore from './store.type';
+import { pagesConfig } from '../common/pagesConfig';
 
-class Navigation {
+import { IStore, INavigation, IPage } from '../common/types';
+
+class Navigation implements INavigation {
   isDataSent: boolean;
 
   parent: IStore;
 
-  constructor(parent) {
+  constructor(parent: IStore) {
     this.isDataSent = false;
     this.parent = parent;
 
@@ -21,48 +22,47 @@ class Navigation {
     });
   }
 
-  setDataSent(isDataSent) {
+  setDataSent(isDataSent: boolean) {
     this.isDataSent = isDataSent;
   }
 
-  getCurrentPageInfo(url) {
+  getCurrentPageInfo(url: string): IPage | null {
     const currentPageIndex = this.getCurrentPageIndex(url);
     if (currentPageIndex !== -1) {
-      return cms[currentPageIndex];
+      return pagesConfig[currentPageIndex];
     }
     return null;
   }
 
-  nextPage(url) {
+  nextPage(url: string) {
     const currentPageIndex = this.getCurrentPageIndex(url);
     const maxAllowedIndex = this.validatePages();
     if (currentPageIndex < maxAllowedIndex) {
-      const { page } = cms[currentPageIndex + 1];
+      const { page } = pagesConfig[currentPageIndex + 1];
       Router.push(page);
     }
     // used to prevent navigation before the all data are provided
   }
 
-  updateCurrentPage(url) {
+  updateCurrentPage(url: string) {
     const currentPageIndex = this.getCurrentPageIndex(url);
     const visitedPageMaxIndex = this.validatePages();
     if (currentPageIndex >= visitedPageMaxIndex + 1) {
-      const { page } = cms[visitedPageMaxIndex];
+      const { page } = pagesConfig[visitedPageMaxIndex];
       if (page !== url) {
         Router.replace(page);
       }
     }
   }
 
-  private getCurrentPageIndex(url) {
-    return cms.findIndex((data) => data.page === url);
+  getCurrentPageIndex(url: string) {
+    return pagesConfig.findIndex((data) => data.page === url);
   }
 
-  // TODO: this won't scale for dynamical forms - move the condition to "cms" file
-  private validatePages() {
+  validatePages() {
     let i = 0;
-    for (; /* intentionally empty */ i < cms.length; i += 1) {
-      if (!cms[i].isPageFormValid(this.parent)) {
+    for (; /* intentionally empty */ i < pagesConfig.length; i += 1) {
+      if (!pagesConfig[i].isPageFormValid(this.parent)) {
         break;
       }
     }

@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+
+import { IProject } from '../common/types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Project = ({ project, onClick, isActive }) => {
+type ProjectProps = {
+  project: IProject;
+  onClick: (project: IProject) => void;
+  isActive: boolean;
+};
+
+const Project = ({ project, onClick, isActive }: ProjectProps) => {
   const { id, name, location } = project;
   const handleClick = useCallback(() => onClick(project), [project, onClick]);
   const classes = useStyles();
@@ -27,7 +34,7 @@ const Project = ({ project, onClick, isActive }) => {
             variant="contained"
             fullWidth
             color={isActive ? 'primary' : 'default'}>
-            <Box spacing={2} display="flex" flexDirection="column" alignContent="stretch">
+            <Box display="flex" flexDirection="column" alignContent="stretch">
               <Box p={1}>
                 <Typography variant="caption">{name}</Typography>
               </Box>
@@ -40,16 +47,6 @@ const Project = ({ project, onClick, isActive }) => {
       </Grid>
     </div>
   );
-};
-
-Project.propTypes = {
-  project: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-  }),
-  onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
 };
 
 export default observer(Project);

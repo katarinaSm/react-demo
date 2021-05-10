@@ -6,7 +6,7 @@ import { API_INVESTMENT } from '../common/paths';
 import useAlert from './useAlert';
 import useNavigation from './useNavigation';
 
-const useSubmitForm = () => {
+const useSubmitForm: () => [boolean, boolean, () => void] = () => {
   const [isLoading, setLoading] = useState(false);
   const store = useStore();
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const useSubmitForm = () => {
     const payload = {
       email: store.investorData.email,
       investment_amount: `${store.investorData.amount}`,
-      project_id: store.currentProjectInfo?.id,
+      project_id: store.getCurrentProjectInfo()?.id,
     };
     window
       .fetch(API_INVESTMENT, {

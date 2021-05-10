@@ -53,9 +53,9 @@ describe('Projects', () => {
       </TestWrapper>,
     );
 
-    await waitFor(() => expect(store.setProjects).toBeCalledWith(projects));
+    await waitFor(() => expect(store.setProjects).toBeCalled());
 
-    expect(store.setProject).toBeCalledTimes(0);
+    expect(store.setCurrentProjectInfo).toBeCalledTimes(0);
   });
 
   it('should traverse to next page on selection', async () => {
@@ -65,13 +65,13 @@ describe('Projects', () => {
       </TestWrapper>,
     );
 
-    await waitFor(() => expect(store.setProjects).toBeCalledWith(projects));
+    await waitFor(() => expect(store.setProjects).toBeCalled());
 
     await act(async () => {
       userEvent.click(queryByTestId('project_1').querySelector('button'));
     });
 
-    expect(store.setProject).toBeCalledTimes(1);
+    expect(store.setCurrentProjectInfo).toBeCalledTimes(1);
     expect(store.navigation.nextPage).toBeCalledTimes(1);
   });
 });

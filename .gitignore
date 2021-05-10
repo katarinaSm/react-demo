@@ -45,3 +45,6 @@ yarn-error.log*
 e2e/output
 chromedriver.log
 geckodriver.log
+
+# test
+coverage

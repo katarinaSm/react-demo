@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, PropsWithChildren } from 'react';
+
+type State = {
+  hasError: boolean;
+};
 
 // https://reactjs.org/docs/error-boundaries.html
-class ErrorBoundary extends Component {
+class ErrorBoundary extends Component<PropsWithChildren<unknown>, State> {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(_: Error) {
     return { hasError: true };
   }
 
@@ -25,9 +28,5 @@ class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
-
-ErrorBoundary.propTypes = {
-  children: PropTypes.node,
-};
 
 export default ErrorBoundary;

@@ -59,10 +59,10 @@ If this is the case, please, stop the application, remove `.next` folder (known 
 - usage of Intl namespace used to provide i18n API (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 - testing hooks, mocking or modules, dealing with timers, testing of transient states of controls (async-await)
 - e2e tests based on Nightwatch
+- switching to Typescript
 
 ### Improvements
 
-- rewrite to Typescript
 - generate missing Campaigns programmatically
 - theme is not provided
 - analytic (tracking) is missing
@@ -211,6 +211,42 @@ For testing purpose, you can use the following curl:
 curl -X POST http://localhost:3000/api/investment
 	 -H "Content-Type: application/json" 
      -d "{\"email\":\"dragan@net.com\",\"investment_amount\":\"123\",\"project_id\":\"123\"}"
+~~~
+
+### Test coverage
+
+Please execute
+
+~~~
+yarn test --coverage
+~~~
+
+~~~
+--------------------------|---------|----------|---------|---------|-------------------
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------|---------|----------|---------|---------|-------------------
+All files                 |   95.14 |    88.89 |   88.46 |   94.85 |                   
+ common                   |     100 |      100 |     100 |     100 |                   
+  intl.ts                 |     100 |      100 |     100 |     100 |                   
+  pagesConfig.ts          |     100 |      100 |     100 |     100 |                   
+ components               |     100 |    88.89 |     100 |     100 |                   
+  ConfirmInfo.tsx         |     100 |      100 |     100 |     100 |                   
+  InvestorInformation.tsx |     100 |      100 |     100 |     100 |                   
+  Layout.tsx              |     100 |      100 |     100 |     100 |                   
+  Project.tsx             |     100 |       50 |     100 |     100 | 36                
+  Projects.tsx            |     100 |    83.33 |     100 |     100 | 52                
+ hooks                    |     100 |      100 |     100 |     100 |                   
+  useAlert.ts             |     100 |      100 |     100 |     100 |                   
+  useStore.ts             |     100 |      100 |     100 |     100 |                   
+  useSubmitForm.ts        |     100 |      100 |     100 |     100 |                   
+ store                    |   82.93 |       80 |    62.5 |    82.5 |                   
+  investorData.ts         |     100 |      100 |     100 |     100 |                   
+  navigation.ts           |   96.15 |       80 |    87.5 |      96 | 26                
+  store.ts                |   45.45 |      100 |   16.67 |   45.45 | 38-55             
+ test                     |     100 |      100 |     100 |     100 |                   
+  TestWrapper.tsx         |     100 |      100 |     100 |     100 |                   
+  mockFetch.ts            |     100 |      100 |     100 |     100 |                   
+--------------------------|---------|----------|---------|---------|-------------------
 ~~~
 
 ### Dev notes

@@ -5,9 +5,12 @@ import { getMockStore } from '../test/mockStore';
 import TestWrapper from '../test/TestWrapper';
 import ConfirmInfo from './ConfirmInfo';
 import mockFetch from '../test/mockFetch';
+import { IStore, IProject, IInvestorData } from '../common/types';
 
 describe('ConfirmInfo', () => {
-  let store;
+  let store: IStore;
+  let mockProject: IProject;
+  let mockInvestor: IInvestorData;
 
   beforeEach(() => {
     jest.useFakeTimers();
@@ -21,21 +24,12 @@ describe('ConfirmInfo', () => {
       }),
     );
     store = getMockStore();
-  });
-
-  it('should show the user inputs', () => {
-    store.currentProjectInfo = {
+    mockProject = {
       name: 'My project',
+      id: 1,
+      location: 'location',
     };
-    store.investorData = { email: 'mail@example.com', amount: 1500000 };
-
-    const { getByText } = render(
-      <TestWrapper store={store}>
-        <ConfirmInfo />
-      </TestWrapper>,
-    );
-
-    expect(getByText('My project')).toBeDefined();
+    mockInvestor = { email: 'mail@example.com', amount: 1500000, reset: jest.fn() };
   });
 
   it('submit should be disabled is consent is not given', () => {
@@ -58,7 +52,7 @@ describe('ConfirmInfo', () => {
   });
 
   it('should show loader during the data fetching', async () => {
-    window.fetch.mockResolvedValueOnce(
+    (window.fetch as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         status: 200,
         ok: true,

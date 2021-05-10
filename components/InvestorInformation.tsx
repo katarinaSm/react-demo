@@ -11,11 +11,12 @@ import { useRouter } from 'next/router';
 
 import useStore from '../hooks/useStore';
 import useNavigation from '../hooks/useNavigation';
+import InvestorData from '../store/investorData';
 
 const schema = yup.object().shape({
   amount: yup
     .number()
-    .moreThan(0, 'Show me the money')
+    .moreThan(0, 'Expected a positive number')
     .required('Please enter a number')
     .typeError('Please enter a valid positive number'),
   email: yup
@@ -33,7 +34,7 @@ const InvestorInformation = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<InvestorData>({
     resolver: yupResolver(schema),
     defaultValues: {
       ...store.investorData,
@@ -41,7 +42,7 @@ const InvestorInformation = () => {
   });
 
   const onSubmit = useCallback(
-    (data) => {
+    (data: InvestorData) => {
       store.setInvestorData(data);
       navigation.nextPage(router.asPath);
     },

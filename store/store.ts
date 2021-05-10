@@ -1,11 +1,11 @@
 import { action, computed, observable, makeObservable } from 'mobx';
 import Navigation from './navigation';
 import InvestorData from './investorData';
-import type IStore from './store.type';
+import { IStore, INavigation } from '../common/types';
 
 export interface ProjectData {
   id: number;
-  title: string;
+  location: string;
   name: string;
 }
 
@@ -16,7 +16,7 @@ class Store implements IStore {
 
   projects: ProjectData[];
 
-  navigation: Navigation;
+  navigation: INavigation;
 
   constructor() {
     this.currentProject = null;
@@ -29,25 +29,24 @@ class Store implements IStore {
       currentProject: observable,
       setInvestorData: action,
       setProjects: action,
-      setProject: action,
       reset: action,
-      currentProjectInfo: computed,
+      setCurrentProjectInfo: action,
     });
   }
 
-  get currentProjectInfo() {
+  getCurrentProjectInfo(): ProjectData {
     return this.currentProject;
   }
 
-  setProject(currentProject) {
+  setCurrentProjectInfo(currentProject: ProjectData) {
     this.currentProject = currentProject;
   }
 
-  setProjects(projects) {
-    this.projects = projects ?? [];
+  setProjects(projects: ProjectData[]): void {
+    this.projects = projects;
   }
 
-  setInvestorData(investorData) {
+  setInvestorData(investorData: InvestorData) {
     this.investorData = investorData;
   }
 
